@@ -1,40 +1,40 @@
 <pre>
-    #Program-1
-    def aStarAlgo(start_node, stop_node):
-    open_set=set(start_node)
-    closed_set = set()
-    g = {}
-    parents = {}
-    g[start_node]= 0
-    parents[start_node] = start_node
-    while len(open_set) > 0:
-    n = None
-    for v in open_set:
-    if n == None or g[v] + heuristic(v) < g[n]+ heuristic(n):
-    n = v
-    if n == stop_node or Graph_nodes[n] == None:
-    pass
-    else:
-    for (m, weight) in get_neighbors(n):
-    if m not in open_set and m not in closed_set:
-    open_set.add(m)
-    parents[m] = n
-    g[m] = g[n] + weight
-    else:
-    if g[m] > g[n] +weight:
-    g[m] = g[n] + weight
-    parents[m] = n
-    if m in closed_set:
-    closed_set.remove(m)
-    open_set.add(m)
-    if n == None:
-    print("Path doesn't Exist")
-    return None
-    if n == stop_node:
-    path= []
-    while parents[n] != n:
-    path.append(n)
-    n = parents[n]
+#Program-1
+def aStarAlgo(start_node, stop_node):
+open_set=set(start_node)
+closed_set = set()
+g = {}
+parents = {}
+g[start_node]= 0
+parents[start_node] = start_node
+while len(open_set) > 0:
+n = None
+for v in open_set:
+if n == None or g[v] + heuristic(v) < g[n]+ heuristic(n):
+n = v
+if n == stop_node or Graph_nodes[n] == None:
+pass
+else:
+for (m, weight) in get_neighbors(n):
+if m not in open_set and m not in closed_set:
+open_set.add(m)
+parents[m] = n
+g[m] = g[n] + weight
+else:
+if g[m] > g[n] +weight:
+g[m] = g[n] + weight
+parents[m] = n
+if m in closed_set:
+closed_set.remove(m)
+open_set.add(m)
+if n == None:
+print("Path doesn't Exist")
+return None
+if n == stop_node:
+path= []
+while parents[n] != n:
+path.append(n)
+n = parents[n]
 path.append(start_node)
 path.reverse()
 print('Path found: {} '.format(path))
@@ -63,17 +63,17 @@ H_dist = {
 }
 return H_dist[n]
 Graph_nodes = {
-    'A':[('B',6),('F',3)],
-    'B':[('C',3),('D',2)],
-    'C':[('D',1),('E',5)],
-    'D':[('C',1),('E',8)],
-    'E':[('I',5),('J',5)],
-    'F':[('G',1),('H',7)],
-    'G':[('I',3)],
-    'H':[('I',2)],
-    'I':[('E',5),('J',3)]
-    }
-    aStarAlgo('A', 'J')
+'A':[('B',6),('F',3)],
+'B':[('C',3),('D',2)],
+'C':[('D',1),('E',5)],
+'D':[('C',1),('E',8)],
+'E':[('I',5),('J',5)],
+'F':[('G',1),('H',7)],
+'G':[('I',3)],
+'H':[('I',2)],
+'I':[('E',5),('J',3)]
+}
+aStarAlgo('A', 'J')
 
 
 # program-2
@@ -262,7 +262,7 @@ from pandas import DataFrame
 # To remove warning SettingWithCopy warning
 from pandas.core.common import SettingWithCopyWarning
 warnings.simplefilter(action="ignore",
-                      category=SettingWithCopyWarning)
+                  category=SettingWithCopyWarning)
 df_tennis = pd.read_csv('tennis.csv')
 # Function to calculate the entropy of probability of observations
 # -p*log2*p
@@ -284,11 +284,11 @@ return entropy(probs)  # Call Entropy :
 12
 total_entropy = entropy_of_list(df_tennis['PlayTennis'])
 print("\n Total Entropy of PlayTennis Data Set:", total_entropy,
-      "\n\n")
+  "\n\n")
 
 
 def information_gain(df, split_attribute_name, target_attribute_name,
-                     trace=0):
+                 trace=0):
 
 
 '''
@@ -303,29 +303,29 @@ df_split = df.groupby(split_attribute_name)
 # Proportion of Obs in Each Data-Split
 nobs = len(df.index) * 1.0
 df_agg_ent = df_split.agg({target_attribute_name:
-                           [entropy_of_list, lambda x: len(x)/nobs]})[target_attribute_name]
+                       [entropy_of_list, lambda x: len(x)/nobs]})[target_attribute_name]
 df_agg_ent.columns = ['Entropy', 'PropObservations']
 if trace:  # helps understand what func. is doing:
 print(df_agg_ent)
 # Calculate Information Gain:
 new_entropy = sum(df_agg_ent['Entropy'] *
-                  df_agg_ent['PropObservations'])
+              df_agg_ent['PropObservations'])
 old_entropy = entropy_of_list(df[target_attribute_name])
 return old_entropy - new_entropy
 print('\n Info-gain for Outlook is :'+str(
-    information_gain(df_tennis, 'Outlook', 'PlayTennis')), "\n")
+information_gain(df_tennis, 'Outlook', 'PlayTennis')), "\n")
 print('\n Info-gain for Humidity is: ' + str(
-    information_gain(df_tennis, 'Humidity', 'PlayTennis')), "\n")
+information_gain(df_tennis, 'Humidity', 'PlayTennis')), "\n")
 print('\n Info-gain for Wind is:' + str(information_gain(df_tennis,
-                                                         'Wind', 'PlayTennis')), "\n")
+                                                     'Wind', 'PlayTennis')), "\n")
 print('\n Info-gain for Temperature is:' + str(
-    information_gain(df_tennis, 'Temperature', 'PlayTennis')), "\n")
+information_gain(df_tennis, 'Temperature', 'PlayTennis')), "\n")
 13
 def id3(df, target_attribute_name, attribute_names,
-        default_class=None):
+    default_class=None):
 
 
-    # Tally target attribute:
+# Tally target attribute:
 cnt = Counter(x for x in df[target_attribute_name])  # class of YES
 /NO
 # First check: Is this split of the dataset homogeneous?
@@ -338,11 +338,11 @@ elif df.empty or (not attribute_names):
 return default_class  # Return None for Empty Data Set
 # Otherwise: This dataset is ready to be divided up!
 else:
-    # Get Default Value for next recursive call of this function:
+# Get Default Value for next recursive call of this function:
 default_class = max(cnt.keys())  # No of YES and NO Class
 # Compute the Information Gain of the attributes:
 gainz = [information_gain(df, attr, target_attribute_name)
-         for attr in attribute_names]
+     for attr in attribute_names]
 index_of_max = gainz.index(max(gainz))  # Index of Best
 Attribute
 # Choose Best Attribute to split on:
@@ -351,7 +351,7 @@ best_attr = attribute_names[index_of_max]
 tree = {best_attr: {}}  # Initiate the tree with best attribute
 as a node
 remaining_attribute_names = [i for i in attribute_names if i
-                             != best_attr]
+                         != best_attr]
 # Split dataset
 # On each split, recursively call this algorithm.
 14
@@ -359,9 +359,9 @@ remaining_attribute_names = [i for i in attribute_names if i
 # are the result of the recursive call
 for attr_val, data_subset in df.groupby(best_attr):
 subtree = id3(data_subset,
-              target_attribute_name,
-              remaining_attribute_names,
-              default_class)
+          target_attribute_name,
+          remaining_attribute_names,
+          default_class)
 tree[best_attr][attr_val] = subtree
 return tree
 # Get Predictor Names (all but 'class')
@@ -388,7 +388,7 @@ else:
 return default
 15
 df_tennis['actual'] = df_tennis.apply(classify, axis=1,
-                                      args=(tree, 'No'))
+                                  args=(tree, 'No'))
 # classify func allows for a default arg: when tree doesn't have
 answer for a particular
 # combination of attribute-values, we can use 'no' as the default
@@ -398,18 +398,18 @@ training_data = df_tennis.iloc[1:-4]  # all but last four instances
 test_data = df_tennis.iloc[-4:]  # just the last four
 train_tree = id3(training_data, 'PlayTennis', attribute_names)
 test_data['predicted'] = test_data.apply(
-    # <---- test_data source
-    classify,
-    axis=1,
-    args=(train_tree, 'Yes'))
+# <---- test_data source
+classify,
+axis=1,
+args=(train_tree, 'Yes'))
 <---- train_data tree
 print("\n\n", test_data)
 print('\n\n Accuracy is : ' + str(
-    sum(test_data['PlayTennis'] == test_data['predicted']) /
-    (1.0*len(test_data.index))))
+sum(test_data['PlayTennis'] == test_data['predicted']) /
+(1.0*len(test_data.index))))
 
-    #program-5
-    import numpy as np
+#program-5
+import numpy as np
 X = np.array(([2, 9], [1, 5], [3, 6]), dtype=float)
 y = np.array(([92], [86], [89]), dtype=float)
 X = X/np.amax(X,axis=0) # maximum of X array longitudinally
@@ -702,32 +702,32 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 def kernel(point,xmat, k):
- m,n = np.shape(xmat)
- weights = np.mat(np.eye((m))) # eye - identity matrix
- for j in range(m):
- diff = point - X[j]
- weights[j,j] = np.exp(diff*diff.T/(-2.0*k**2))
- return weights
+m,n = np.shape(xmat)
+weights = np.mat(np.eye((m))) # eye - identity matrix
+for j in range(m):
+diff = point - X[j]
+weights[j,j] = np.exp(diff*diff.T/(-2.0*k**2))
+return weights
 def localWeight(point,xmat,ymat,k):
- wei = kernel(point,xmat,k)
- W = (X.T*(wei*X)).I*(X.T*(wei*ymat.T))
- return W
+wei = kernel(point,xmat,k)
+W = (X.T*(wei*X)).I*(X.T*(wei*ymat.T))
+return W
 def localWeightRegression(xmat,ymat,k):
- m,n = np.shape(xmat)
- ypred = np.zeros(m)
- for i in range(m):
- ypred[i] = xmat[i]*localWeight(xmat[i],xmat,ymat,k)
- return ypred
+m,n = np.shape(xmat)
+ypred = np.zeros(m)
+for i in range(m):
+ypred[i] = xmat[i]*localWeight(xmat[i],xmat,ymat,k)
+return ypred
 def graphPlot(X,ypred):
- sortindex = X[:,1].argsort(0) #argsort - index of the smallest
- xsort = X[sortindex][:,0]
- fig = plt.figure()
- ax = fig.add_subplot(1,1,1)
- ax.scatter(bill,tip, color='green')
- ax.plot(xsort[:,1],ypred[sortindex], color = 'red', linewidth=5)
- plt.xlabel('Total bill')
- plt.ylabel('Tip')
- plt.show();
+sortindex = X[:,1].argsort(0) #argsort - index of the smallest
+xsort = X[sortindex][:,0]
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+ax.scatter(bill,tip, color='green')
+ax.plot(xsort[:,1],ypred[sortindex], color = 'red', linewidth=5)
+plt.xlabel('Total bill')
+plt.ylabel('Tip')
+plt.show();
 # load data points
 data = pd.read_csv('E:\\data10.csv')
 bill = np.array(data.total_bill) # We use only Bill amount and Tips data
